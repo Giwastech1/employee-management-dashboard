@@ -36,7 +36,12 @@ const initialEmployees: Employee[] = [
 
 const EmployeeList: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
-  const [newEmployee, setNewEmployee] = useState<Employee>({
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [sortAsc, setSortAsc] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
+  const [formData, setFormData] = useState<Employee>({
     id: Date.now(),
     name: '',
     email: '',
@@ -46,19 +51,25 @@ const EmployeeList: React.FC = () => {
     status: 'Active',
   });
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
-  const [sortAsc, setSortAsc] = useState(true);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setNewEmployee({ ...newEmployee, [name]: value });
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
-    setNewEmployee({
+
+    if (isEditing && editId !== null) {
+      setEmployees(prev =>
+        prev.map(emp => (emp.id === editId ? { ...formData, id: editId } : emp))
+      );
+      setIsEditing(false);
+      setEditId(null);
+    } else {
+      setEmployees(prev => [...prev, { ...formData, id: Date.now() }]);
+    }
+
+    setFormData({
       id: Date.now(),
       name: '',
       email: '',
@@ -69,7 +80,18 @@ const EmployeeList: React.FC = () => {
     });
   };
 
-  // 🔍 Filtering and sorting
+  const handleEdit = (emp: Employee) => {
+    setIsEditing(true);
+    setEditId(emp.id);
+    setFormData({ ...emp });
+  };
+
+  const handleDelete = (id: number) => {
+    if (confirm('Are you sure you want to delete this employee?')) {
+      setEmployees(prev => prev.filter(emp => emp.id !== id));
+    }
+  };
+
   const filteredEmployees = employees
     .filter(emp =>
       (emp.name + emp.email).toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -83,19 +105,19 @@ const EmployeeList: React.FC = () => {
 
   return (
     <div className="employee-list">
-      <h2>Add New Employee</h2>
+      <h2>{isEditing ? 'Edit Employee' : 'Add New Employee'}</h2>
       <form onSubmit={handleSubmit} className="employee-form">
-        <input type="text" name="name" value={newEmployee.name} onChange={handleChange} placeholder="Name" required />
-        <input type="email" name="email" value={newEmployee.email} onChange={handleChange} placeholder="Email" required />
-        <input type="text" name="department" value={newEmployee.department} onChange={handleChange} placeholder="Department" required />
-        <input type="text" name="role" value={newEmployee.role} onChange={handleChange} placeholder="Role" required />
-        <input type="date" name="hireDate" value={newEmployee.hireDate} onChange={handleChange} required />
-        <select name="status" value={newEmployee.status} onChange={handleChange}>
+        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+        <input type="text" name="department" value={formData.department} onChange={handleChange} placeholder="Department" required />
+        <input type="text" name="role" value={formData.role} onChange={handleChange} placeholder="Role" required />
+        <input type="date" name="hireDate" value={formData.hireDate} onChange={handleChange} required />
+        <select name="status" value={formData.status} onChange={handleChange}>
           <option value="Active">Active</option>
           <option value="Probation">Probation</option>
           <option value="Contract">Contract</option>
         </select>
-        <button type="submit">Add Employee</button>
+        <button type="submit">{isEditing ? 'Update' : 'Add'} Employee</button>
       </form>
 
       <div className="filter-bar">
@@ -126,6 +148,7 @@ const EmployeeList: React.FC = () => {
             <th>Role</th>
             <th>Hire Date</th>
             <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -140,6 +163,10 @@ const EmployeeList: React.FC = () => {
                 <span className={`status ${emp.status.toLowerCase()}`}>
                   {emp.status}
                 </span>
+              </td>
+              <td>
+                <button className="edit-btn" onClick={() => handleEdit(emp)}>Edit</button>
+                <button className="delete-btn" onClick={() => handleDelete(emp.id)}>Delete</button>
               </td>
             </tr>
           ))}
