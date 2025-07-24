@@ -113,37 +113,40 @@ const EmployeeList: React.FC = () => {
 
     return (
         <div className="employee-list">
-            <h2>{isEditing ? 'Edit Employee' : 'Add New Employee'}</h2>
-            <form onSubmit={handleSubmit} className="employee-form">
-                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
-                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
-                <input type="text" name="department" value={formData.department} onChange={handleChange} placeholder="Department" required />
-                <input type="text" name="role" value={formData.role} onChange={handleChange} placeholder="Role" required />
-                <input type="date" name="hireDate" value={formData.hireDate} onChange={handleChange} required />
-                <select name="status" value={formData.status} onChange={handleChange}>
-                    <option value="Active">Active</option>
-                    <option value="Probation">Probation</option>
-                    <option value="Contract">Contract</option>
-                </select>
-                <button type="submit">{isEditing ? 'Update' : 'Add'} Employee</button>
-            </form>
+            <div className="dashboard-summary-container">
+                <h2>{isEditing ? 'Edit Employee' : 'Add New Employee'}</h2>
 
-            <div className="filter-bar">
-                <input
-                    type="text"
-                    placeholder="Search by name or email"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-                    <option value="">All Statuses</option>
-                    <option value="Active">Active</option>
-                    <option value="Probation">Probation</option>
-                    <option value="Contract">Contract</option>
-                </select>
-                <button onClick={() => setSortAsc(!sortAsc)}>
-                    Sort {sortAsc ? '↓ Z-A' : '↑ A-Z'}
-                </button>
+                <form onSubmit={handleSubmit} className="employee-form">
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+                    <input type="text" name="department" value={formData.department} onChange={handleChange} placeholder="Department" required />
+                    <input type="text" name="role" value={formData.role} onChange={handleChange} placeholder="Role" required />
+                    <input type="date" name="hireDate" value={formData.hireDate} onChange={handleChange} required />
+                    <select name="status" value={formData.status} onChange={handleChange}>
+                        <option value="Active">Active</option>
+                        <option value="Probation">Probation</option>
+                        <option value="Contract">Contract</option>
+                    </select>
+                    <button type="submit">{isEditing ? 'Update' : 'Add'} Employee</button>
+                </form>
+
+                <div className="filter-bar">
+                    <input
+                        type="text"
+                        placeholder="Search by name or email"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                        <option value="">All Statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="Probation">Probation</option>
+                        <option value="Contract">Contract</option>
+                    </select>
+                    <button onClick={() => setSortAsc(!sortAsc)}>
+                        Sort {sortAsc ? '↓ Z-A' : '↑ A-Z'}
+                    </button>
+                </div>
             </div>
             {/* DASHBOARD SUMMARY */}
             <div className="dashboard-summary">

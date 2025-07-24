@@ -1,0 +1,72 @@
+.dashboard-summary-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+  }
+  
+  .dashboard-summary-container h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .employee-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .employee-form input,
+  .employee-form select,
+  .employee-form button {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .employee-form input,
+  .employee-form select {
+    flex: 1 1 150px;
+  }
+  
+  .employee-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .employee-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .filter-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .filter-bar input,
+  .filter-bar select,
+  .filter-bar button {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .filter-bar button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .filter-bar button:hover {
+    background-color: #495057;
+  }
