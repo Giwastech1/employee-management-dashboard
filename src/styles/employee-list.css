@@ -43,3 +43,74 @@
         font-size: 14px;
         border-radius: 6px;
   }
+  .employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .employee-table thead {
+    background-color: #f0f0f0;
+  }
+  
+  .employee-table th,
+  .employee-table td {
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    white-space: nowrap;
+  }
+  
+  .employee-table th {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .employee-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  .employee-table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .edit-btn {
+    background-color: #ffc107;
+    color: #000;
+  }
+  
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #e0a800;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+  .download-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .download-btn:hover {
+    background-color: #2980b9;
+  }
