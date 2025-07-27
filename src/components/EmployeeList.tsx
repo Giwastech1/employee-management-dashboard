@@ -13,6 +13,7 @@ type Employee = {
   status: Status;
 };
 
+//initial employee data
 const initialEmployees: Employee[] = [
   {
     id: 1,
@@ -39,7 +40,7 @@ const EmployeeList: React.FC = () => {
     const saved = localStorage.getItem('employees');
     return saved ? JSON.parse(saved) : initialEmployees;
   });
-
+//states management
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [sortAsc, setSortAsc] = useState(true);
